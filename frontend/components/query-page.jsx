@@ -185,10 +185,10 @@ export function QueryPage() {
         <div className="w-full pt-6 md:pt-18 flex justify-center">
           <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
             {isLoading && (
-              <div className="absolute inset-16 rounded-full border-4 border-white-450 opacity-75 animate-ping" />
+              <div className="absolute inset-12 rounded-full border-4 border-white-450 opacity-75 animate-ping" />
             )}
-            <div className="absolute inset-4 rounded-full border-4 border-blue-450 opacity-75 animate-pulse" />
-            <div className="absolute inset-8 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse" />
+            <div className="absolute inset-0 rounded-full border-4 border-blue-450 opacity-75 animate-pulse" />
+            <div className="absolute inset-4 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse" />
             <div className="text-white text-xl font-semibold">Guided Mind</div>
           </div>
         </div>
