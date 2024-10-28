@@ -121,59 +121,62 @@ export function QueryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col">
-      {/* Add a top spacer */}
-      <div className="h-16 md:h-24" />
-      {/* Main content container with safe area spacing */}
-      <div className="flex-1 flex flex-col p-4 pb-safe">
-        {/* Logo section that shrinks on mobile keyboard */}
-        <div className="flex-shrink flex items-center justify-center mb-4 transition-all duration-200 ease-in-out">
-          <div className="relative w-64 h-64 md:w-64 md:h-64 flex items-center justify-center">
+      {/* Main content container */}
+      <div className="flex-1 flex flex-col p-12 md:pt-24">
+        {/* Logo section */}
+        <div className="flex-shrink-0 flex items-center justify-center mb-4">
+          <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
             <div className="absolute inset-0 rounded-full border-4 border-blue-450 opacity-75 animate-pulse"></div>
             <div className="absolute inset-4 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse"></div>
             <div className="text-white text-xl font-semibold">Guided Mind</div>
           </div>
         </div>
 
-        {/* Spacer that collapses when keyboard appears */}
-        <div className="flex-grow md:flex-grow-0" />
+        {/* Flexible spacer */}
+        <div className="flex-1" />
 
-        {/* Input section fixed at bottom */}
-        <div className="w-full max-w-sm mx-auto">
-          <div className="flex items-center space-x-2 mb-safe">
-            <Input
-              id="query-input"
-              type="text"
-              placeholder="What's going on?"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-gray-700 text-white border-gray-600 focus:border-blue-500 focus:ring-blue-500"
-            />
-            {audio && (
+        {/* Fixed bottom input section with safe area padding */}
+        <div className="fixed bottom-4 md:bottom-16 left-0 right-0">
+          <div className="w-full max-w-sm mx-auto p-4 pb-8 md:pb-4">
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-center space-x-2"
+            >
+              <Input
+                id="query-input"
+                type="text"
+                placeholder="What's going on?"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full bg-gray-700 text-white border-gray-600 focus:border-blue-500 focus:ring-blue-500"
+              />
+              {audio && (
+                <Button
+                  type="button"
+                  size="icon"
+                  onClick={togglePlayPause}
+                  variant={audio ? "secondary" : "default"}
+                >
+                  {isPlaying ? (
+                    <Pause className="h-4 w-4" />
+                  ) : (
+                    <Play className="h-4 w-4" />
+                  )}
+                </Button>
+              )}
               <Button
+                type="submit"
                 size="icon"
-                onClick={togglePlayPause}
-                variant={audio ? "secondary" : "default"}
+                disabled={isLoading || query.length < 1}
+                variant={audio ? "default" : "secondary"}
               >
-                {isPlaying ? (
-                  <Pause className="h-4 w-4" />
+                {isLoading ? (
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white" />
                 ) : (
-                  <Play className="h-4 w-4" />
+                  <ChevronRight className="h-4 w-4" />
                 )}
               </Button>
-            )}
-            <Button
-              type="submit"
-              size="icon"
-              onClick={handleSubmit}
-              disabled={isLoading || query.length < 1}
-              variant={audio ? "default" : "secondary"}
-            >
-              {isLoading ? (
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-white" />
-              ) : (
-                <ChevronRight className="h-4 w-4" />
-              )}
-            </Button>
+            </form>
           </div>
         </div>
       </div>
