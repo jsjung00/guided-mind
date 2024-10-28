@@ -27,7 +27,7 @@ const InfoPopup = () => {
             <DialogTitle>About the app</DialogTitle>
             <DialogDescription>
               I created this app to reframe negative thinking and ease stressful
-              moments. For ~1000 runs it costs me $10 in OpenAI credits. If you
+              moments. For ~1000 runs it costs me $20 in OpenAI credits. If you
               find this useful and would like to keep the app running and free,
               please consider supporting. You can reach me with my contact
               below.
@@ -176,8 +176,11 @@ export function QueryPage() {
       <div className="flex-grow flex flex-col items-center justify-start p-2 md:p-12">
         <div className="w-full pt-6 md:pt-18 flex justify-center">
           <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border-4 border-blue-450 opacity-75 animate-pulse" />
-            <div className="absolute inset-4 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse" />
+            {isLoading && (
+              <div className="absolute inset-16 rounded-full border-4 border-white-450 opacity-75 animate-ping" />
+            )}
+            <div className="absolute inset-4 rounded-full border-4 border-blue-450 opacity-75 animate-pulse" />
+            <div className="absolute inset-8 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse" />
             <div className="text-white text-xl font-semibold">Guided Mind</div>
           </div>
         </div>
@@ -187,7 +190,7 @@ export function QueryPage() {
               ref={inputRef}
               id="query-input"
               type="text"
-              placeholder="What's going on?"
+              placeholder="What's on your mind?"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onBlur={handleInputBlur}
