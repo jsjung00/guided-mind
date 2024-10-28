@@ -43,7 +43,10 @@ export async function POST(request) {
     const first_script = response.choices[0].message.content;
     */
     const first_script =
-      "This is the first sentence ... This is the second sentence... This is the third sentence";
+      "This is the first sentence ... This is the second sentence THisis some more ";
+    //const script_parts = first_script.split("...");
+
+    // TODO: add pauses in between the parts
 
     const mp3 = await openai.audio.speech.create({
       model: "tts-1",
