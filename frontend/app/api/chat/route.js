@@ -15,7 +15,6 @@ export async function POST(request) {
       return NextResponse.json({ error: "Query is required" }, { status: 400 });
     }
 
-    /*
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
@@ -41,10 +40,6 @@ export async function POST(request) {
     });
 
     const first_script = response.choices[0].message.content;
-    */
-    const first_script =
-      "This is the first sentence ... This is the second sentence THisis some more ";
-    //const script_parts = first_script.split("...");
 
     // TODO: add pauses in between the parts
 
