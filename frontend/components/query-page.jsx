@@ -130,7 +130,7 @@ export function QueryPage() {
         <div className="w-full mt-80">
           <div className="flex w-full max-w-sm items-center space-x-2">
             <label htmlFor="query-input" className="sr-only">
-              What's going on?
+              What&apos;s going on?
             </label>
             <Input
               id="query-input"
