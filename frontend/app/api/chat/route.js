@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+export const maxDuration = 20; // This function can run for a maximum of 5 seconds
 
 export async function POST(request) {
   try {
