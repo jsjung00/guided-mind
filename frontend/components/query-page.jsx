@@ -19,7 +19,7 @@ export function QueryPage() {
     audioRef.current = new Audio();
     bgMusicRef.current = new Audio();
     bgMusicRef.current.src = "/audio/background_meditation.mp3";
-    bgMusicRef.current.volume = 0.2;
+    bgMusicRef.current.volume = 0.3;
 
     return () => {
       if (bgMusicRef.current) {
@@ -120,18 +120,26 @@ export function QueryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-xs flex flex-col items-center space-y-8">
-        <div className="relative w-64 h-64 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full border-4 border-blue-450 opacity-75 animate-pulse"></div>
-          <div className="absolute inset-4 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse"></div>
-          <div className="text-white text-xl font-semibold">Guided Mind</div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col">
+      {/* Add a top spacer */}
+      <div className="h-16 md:h-24" />
+      {/* Main content container with safe area spacing */}
+      <div className="flex-1 flex flex-col p-4 pb-safe">
+        {/* Logo section that shrinks on mobile keyboard */}
+        <div className="flex-shrink flex items-center justify-center mb-4 transition-all duration-200 ease-in-out">
+          <div className="relative w-64 h-64 md:w-64 md:h-64 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full border-4 border-blue-450 opacity-75 animate-pulse"></div>
+            <div className="absolute inset-4 rounded-full border-4 border-cyan-300 opacity-25 animate-pulse"></div>
+            <div className="text-white text-xl font-semibold">Guided Mind</div>
+          </div>
         </div>
-        <div className="w-full mt-80">
-          <div className="flex w-full max-w-sm items-center space-x-2">
-            <label htmlFor="query-input" className="sr-only">
-              What&apos;s going on?
-            </label>
+
+        {/* Spacer that collapses when keyboard appears */}
+        <div className="flex-grow md:flex-grow-0" />
+
+        {/* Input section fixed at bottom */}
+        <div className="w-full max-w-sm mx-auto">
+          <div className="flex items-center space-x-2 mb-safe">
             <Input
               id="query-input"
               type="text"
