@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 const InfoPopup = () => {
   return (
@@ -54,6 +55,8 @@ export function QueryPage() {
   const audioRef = useRef(null);
   const bgMusicRef = useRef(null);
   const inputRef = useRef(null);
+
+  const { toast } = useToast();
 
   // Initialize audio object on client-side only
   useEffect(() => {
@@ -133,6 +136,11 @@ export function QueryPage() {
       setQuery("");
     } catch (error) {
       console.error("Error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
     } finally {
       setIsLoading(false);
     }
