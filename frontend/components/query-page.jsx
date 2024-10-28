@@ -3,7 +3,47 @@
 import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Play, Pause, RotateCcw } from "lucide-react";
+import { ChevronRight, Play, Pause, InfoIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+const InfoPopup = () => {
+  return (
+    <div className="fixed top-4 right-4">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button size="icon" variant="secondary" className="rounded-full">
+            <InfoIcon className="h-5 w-5" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>About the app</DialogTitle>
+            <DialogDescription>
+              I created this app to reframe negative thinking and ease stressful
+              moments. For ~1000 runs it costs me $10 in OpenAI credits. If you
+              find this useful and would like to keep the app running and free,
+              please consider supporting. You can reach me with my contact
+              below.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-2 text-sm">
+            <h4 className="font-medium">Contact Information</h4>
+            <div className="text-muted-foreground">
+              <p>Email: justinsoljung@gmail.com</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
 
 export function QueryPage() {
   const [query, setQuery] = useState("");
@@ -132,6 +172,7 @@ export function QueryPage() {
 
   return (
     <main className="min-h-screen relative flex flex-col bg-gradient-to-b from-gray-900 to-gray-800">
+      {<InfoPopup />}
       <div className="flex-grow flex flex-col items-center justify-start p-2 md:p-12">
         <div className="w-full pt-6 md:pt-18 flex justify-center">
           <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
