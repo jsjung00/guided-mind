@@ -10,12 +10,37 @@ export function QueryPage() {
   const [audio, setAudio] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [bgMusicPlaying, setBgMusicPlaying] = useState(false);
   const audioRef = useRef(null);
+  const bgMusicRef = useRef(null);
 
   // Initialize audio object on client-side only
   useEffect(() => {
     audioRef.current = new Audio();
+    bgMusicRef.current = new Audio();
+    bgMusicRef.current.src = "/audio/background_meditation.mp3";
+    bgMusicRef.current.volume = 0.2;
+
+    return () => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.pause();
+        bgMusicRef.current.src = "";
+      }
+    };
   }, []);
+
+  // start background music if audio is on
+  useEffect(() => {
+    if (audio && !bgMusicPlaying && isPlaying) {
+      console.log("clicking bg play");
+      bgMusicRef.current
+        .play()
+        .then(() => setBgMusicPlaying(true))
+        .catch((error) =>
+          console.error("Background music autoplay failed:", error)
+        );
+    }
+  }, [audio, bgMusicPlaying, isPlaying]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +74,11 @@ export function QueryPage() {
       setAudio(audioUrl);
       //set up audio event listeners
       audioRef.current.onended = () => {
+        setBgMusicPlaying(false);
         setIsPlaying(false);
+        // Stop background music when main audio ends
+        bgMusicRef.current.pause();
+        bgMusicRef.current.currentTime = 0;
       };
 
       // autoplay
@@ -73,8 +102,10 @@ export function QueryPage() {
 
     if (isPlaying) {
       audioRef.current.pause();
+      bgMusicRef.current.pause();
     } else {
       audioRef.current.play();
+      bgMusicRef.current.play();
     }
     setIsPlaying(!isPlaying);
   };
@@ -83,6 +114,9 @@ export function QueryPage() {
     audioRef.current.pause();
     setAudio(null);
     setIsLoading(true);
+    bgMusicRef.current.pause();
+    bgMusicRef.current.currentTime = 0; //reset to beginning
+    setBgMusicPlaying(false);
   };
 
   return (
