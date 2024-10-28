@@ -108,7 +108,9 @@ export function QueryPage() {
       });
 
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        throw new Error(
+          `HTTP error! Vercel Free blocks slow responses. Please consider supporting to have it upgrade to pro. Status: ${res.status}`
+        );
       }
 
       const audioBlob = await res.blob();
